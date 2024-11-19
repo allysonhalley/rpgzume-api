@@ -3,26 +3,27 @@ info:
     name: '@info.app.name@'
     version: '@info.app.version@'
     grailsVersion: '@info.app.grailsVersion@'
+
 grails:
   mime:
     disable:
       accept:
         header:
           userAgents:
-          - Gecko
-          - WebKit
-          - Presto
-          - Trident
+            - Gecko
+            - WebKit
+            - Presto
+            - Trident
     types:
       json:
-      - application/json
-      - text/json
+        - application/json
+        - text/json
       hal:
-      - application/hal+json
-      - application/hal+xml
+        - application/hal+json
+        - application/hal+xml
       xml:
-      - text/xml
-      - application/xml
+        - text/xml
+        - application/xml
       atom: application/atom+xml
       css: text/css
       csv: text/csv
@@ -32,10 +33,11 @@ grails:
       all: '*/*'
       form: application/x-www-form-urlencoded
       html:
-      - text/html
-      - application/xhtml+xml
+        - text/html
+        - application/xhtml+xml
       multipartForm: multipart/form-data
       pdf: application/pdf
+
   views:
     default:
       codec: html
@@ -47,16 +49,58 @@ grails:
         scriptlet: html
         taglib: none
         staticparts: none
-dataSource:
-  url: jdbc:postgresql://localhost:5432/postgres
-  driverClassName: org.postgresql.Driver
-  username: postgres
-  password: ''
-  pooled: true
-  jmxExport: true
-  dbCreate: update
+
 hibernate:
   cache:
     queries: false
     use_second_level_cache: false
     use_query_cache: false
+
+environments:
+  development:
+    dataSource:
+      url: jdbc:postgresql://localhost:5432/rpgzumedb_dev
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password: '123456'
+      pooled: true
+      jmxExport: true
+      dbCreate: update
+
+  test:
+    dataSource:
+      url: jdbc:postgresql://localhost:5432/rpgzumedb_test
+      driverClassName: org.postgresql.Driver
+      username: postgres
+      password: '123456'
+      pooled: true
+      jmxExport: true
+      dbCreate: update
+
+  production:
+    dataSource:
+      url: jdbc:postgresql://localhost:5432/rpgzumedb_prod
+      driverClassName: org.postgresql.Driver
+      username: prod_user
+      password: 'prod_password'
+      pooled: true
+      jmxExport: true
+      dbCreate: none
+      properties:
+        jmxEnabled: true
+        initialSize: 5
+        maxActive: 50
+        minIdle: 5
+        maxIdle: 25
+        maxWait: 10000
+        maxAge: 600000
+        timeBetweenEvictionRunsMillis: 5000
+        minEvictableIdleTimeMillis: 60000
+        validationQuery: SELECT 1
+        validationQueryTimeout: 3
+        validationInterval: 15000
+        testOnBorrow: true
+        testWhileIdle: true
+        testOnReturn: false
+        jdbcInterceptors: ConnectionState
+        defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
