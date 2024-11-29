@@ -2,59 +2,58 @@ package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Card;
 import com.hefti.rpgzume.repository.CardRepository;
+import com.hefti.rpgzume.service.CardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cards") // Prefixo REST comum
 public class CardController {
 
-    private final CardRepository cardRepository;
-
-    public CardController(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
+    @Autowired
+    private CardService cardService;
 
     // Endpoint para listar todos os cards
     @GetMapping
     public List<Card> getAllCards() {
-        return cardRepository.findAll();
+        return cardService.getAllCards();
     }
 
     // Endpoint para buscar um card pelo ID
     @GetMapping("/{id}")
     public ResponseEntity<Card> getCardById(@PathVariable String id) {
-        return cardRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Optional<Card> card = cardService.getCardById(id);
+        return card.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // Endpoint para criar um novo card
     @PostMapping
-    public ResponseEntity<Card> createCard(@RequestBody Card card) {
-        return ResponseEntity.ok(cardRepository.save(card));
+    public ResponseEntity<Card> create(@RequestBody Card card) {
+        Card savedCard = cardService.createCard(card);
+        return ResponseEntity.ok(savedCard);
     }
 
     @PostMapping("/addlist")
     public ResponseEntity<List<Card>> createCards(@RequestBody List<Card> cards) {
         // Salvando os cards recebidos
-        cardRepository.saveAll(cards);
-        return ResponseEntity.ok(cards);
+        return ResponseEntity.ok(cardService.createCards(cards));
     }
 
     // Endpoint para atualizar um card pelo ID
     @PutMapping("/{id}")
     public ResponseEntity<Card> updateCard(@PathVariable String id, @RequestBody Card cardDetails) {
-        return cardRepository.findById(id)
+        return cardService.getCardById(id)
                 .map(card -> {
                     card.setName(cardDetails.getName());
                     card.setResume(cardDetails.getResume());
                     card.setDescription(cardDetails.getDescription());
                     card.setBook(cardDetails.getBook());
                     card.setPage(cardDetails.getPage());
-                    return ResponseEntity.ok(cardRepository.save(card));
+                    return ResponseEntity.ok(cardService.createCard(card));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -62,11 +61,6 @@ public class CardController {
     // Endpoint para deletar um card pelo ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteCard(@PathVariable String id) {
-        return cardRepository.findById(id)
-                .map(card -> {
-                    cardRepository.delete(card);
-                    return ResponseEntity.noContent().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.badRequest().body("Cards só podem ser deletados através da exclusão da Feature associada.");
     }
 }

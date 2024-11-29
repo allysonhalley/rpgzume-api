@@ -28,6 +28,10 @@ public class CardService {
         return cardRepository.save(card);
     }
 
+    public List<Card> createCards(List<Card> cards){
+        return cardRepository.saveAll(cards);
+    }
+
     public Optional<Card> updateCard(String id, Card cardDetails) {
         return cardRepository.findById(id)
                 .map(card -> {
@@ -40,7 +44,9 @@ public class CardService {
                 });
     }
 
+    // Card não pode ser deletado diretamente
     public void deleteCard(String id) {
-        cardRepository.deleteById(id);
+        throw new UnsupportedOperationException("Cards só podem ser deletados através da exclusão da Feature associada.");
     }
+
 }
