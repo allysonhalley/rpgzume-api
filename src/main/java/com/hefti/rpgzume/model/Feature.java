@@ -3,8 +3,8 @@ package com.hefti.rpgzume.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Table(name = "features")
-@Entity(name = "features")
+@Table(name = "feature")
+@Entity(name = "feature")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -29,11 +29,6 @@ public class FeatureController {
         return ResponseEntity.ok(featureService.createFeature(feature));
     }
 
-    @PostMapping
-    public ResponseEntity<Feature> updateFeature(@RequestBody Feature feature) {
-        return ResponseEntity.ok(featureService.updateFeature(feature));
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Feature> getFeatureById(@PathVariable String id) {
         Optional<Feature> feature = featureService.getFeatureById(id);
@@ -44,5 +39,10 @@ public class FeatureController {
     public ResponseEntity<Void> deleteFeature(@PathVariable String id) {
         featureService.deleteFeature(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/fullfeature")
+    public ResponseEntity<Feature> createFeatureWithCard(@RequestBody Feature feature) {
+        return ResponseEntity.ok(featureService.createFeatureWithCard(feature));
     }
 }

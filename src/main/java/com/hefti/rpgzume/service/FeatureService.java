@@ -57,4 +57,13 @@ public class FeatureService {
     public List<Feature> getFeaturesByCard(String cardId) {
         return featureRepository.findByCardId(cardId);
     }
+
+    public Feature createFeatureWithCard(Feature feature) {
+        Card card = feature.getCard();
+        if (card != null) {
+            card = cardRepository.save(card);
+            feature.setCard(card);
+        }
+        return featureRepository.save(feature);
+    }
 }
