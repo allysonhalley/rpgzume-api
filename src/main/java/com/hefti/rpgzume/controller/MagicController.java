@@ -1,6 +1,8 @@
 package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Magic;
+import com.hefti.rpgzume.model.dto.CardDTO;
+import com.hefti.rpgzume.model.dto.MagicDTO;
 import com.hefti.rpgzume.service.MagicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/magics")
@@ -17,8 +20,33 @@ public class MagicController {
 
     // Endpoint para obter todos os magics
     @GetMapping
-    public Iterable<Magic> getAllMagics() {
-        return magicService.getAllMagics();
+    public List<MagicDTO> getAllMagics() {
+        List<Magic> magics = magicService.getAllMagics();
+        return magics.stream().map(magic -> {
+            CardDTO cardDTO = magic.getCard() == null ? null : new CardDTO(
+                    magic.getCard().getId(),
+                    magic.getCard().getName(),
+                    magic.getCard().getResume(),
+                    magic.getCard().getDescription(),
+                    magic.getCard().getBook(),
+                    magic.getCard().getPage()
+            );
+
+            return new MagicDTO(
+                    magic.getId(),
+                    cardDTO,
+                    magic.getType(),
+                    magic.getLevel(),
+                    magic.getComponents(),
+                    magic.getCastTime(),
+                    magic.getRange(),
+                    magic.getTargetArea(),
+                    magic.getDuration(),
+                    magic.getSavingThrow(),
+                    magic.getSpellResistance(),
+                    magic.getEffect()
+            );
+        }).collect(Collectors.toList());
     }
 
     // Endpoint para criar um novo magic

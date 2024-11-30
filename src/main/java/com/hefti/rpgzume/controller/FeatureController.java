@@ -1,7 +1,8 @@
 package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Feature;
-import com.hefti.rpgzume.repository.FeatureRepository;
+import com.hefti.rpgzume.model.dto.CardDTO;
+import com.hefti.rpgzume.model.dto.FeatureDTO;
 import com.hefti.rpgzume.service.FeatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/features")
@@ -19,8 +21,27 @@ public class FeatureController {
 
     // Endpoint para obter todos os features
     @GetMapping
-    public Iterable<Feature> getAllFeatures() {
-        return featureService.getAllFeatures();
+    public List<FeatureDTO> getAllFeatures() {
+        List<Feature> features = featureService.getAllFeatures();
+        return features.stream().map(feature -> {
+            CardDTO cardDTO = feature.getCard() == null ? null : new CardDTO(
+                    feature.getCard().getId(),
+                    feature.getCard().getName(),
+                    feature.getCard().getResume(),
+                    feature.getCard().getDescription(),
+                    feature.getCard().getBook(),
+                    feature.getCard().getPage()
+            );
+
+            return new FeatureDTO(
+                    feature.getId(),
+                    cardDTO,
+                    feature.getPrerequisites(),
+                    feature.getBenefit(),
+                    feature.getNormal(),
+                    feature.getSpecial()
+            );
+        }).collect(Collectors.toList());
     }
 
     // Endpoint para criar um novo feature
