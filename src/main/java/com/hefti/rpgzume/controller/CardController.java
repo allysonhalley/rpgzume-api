@@ -1,7 +1,6 @@
 package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Card;
-import com.hefti.rpgzume.repository.CardRepository;
 import com.hefti.rpgzume.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
