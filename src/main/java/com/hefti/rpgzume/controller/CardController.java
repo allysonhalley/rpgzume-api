@@ -58,8 +58,9 @@ public class CardController {
     }
 
     // Endpoint para deletar um card pelo ID
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteCard(@PathVariable String id) {
-        return ResponseEntity.badRequest().body("Cards só podem ser deletados através da exclusão da Feature associada.");
-    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Object> deleteCard(@PathVariable String id) {
+//        return ResponseEntity.badRequest().body("Cards só podem ser deletados através da exclusão da Feature associada.");
+//    }
 }
