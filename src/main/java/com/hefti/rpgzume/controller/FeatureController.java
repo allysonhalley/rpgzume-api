@@ -45,4 +45,10 @@ public class FeatureController {
     public ResponseEntity<Feature> createFeatureWithCard(@RequestBody Feature feature) {
         return ResponseEntity.ok(featureService.createFeatureWithCard(feature));
     }
+
+    @PostMapping("/addfulllist")
+    public ResponseEntity<List<Feature>> createFeatures(@RequestBody List<Feature> features) {
+        return ResponseEntity.ok(featureService.createFeatures(features));
+    }
+
 }

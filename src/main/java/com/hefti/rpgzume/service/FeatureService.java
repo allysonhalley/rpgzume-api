@@ -2,6 +2,7 @@ package com.hefti.rpgzume.service;
 
 import com.hefti.rpgzume.model.Card;
 import com.hefti.rpgzume.model.Feature;
+import com.hefti.rpgzume.model.Feature;
 import com.hefti.rpgzume.repository.CardRepository;
 import com.hefti.rpgzume.repository.FeatureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,14 @@ public class FeatureService {
 
     public Feature createFeature(Feature feature) {
         return featureRepository.save(feature);
+    }
+
+    public List<Feature> createFeatures(List<Feature> features) {
+        features.forEach(feature -> {
+            feature.setCard(cardRepository.save(feature.getCard()));
+            createFeature(feature);
+        });
+        return featureRepository.saveAll(features);
     }
 
     // Buscar uma feature pelo ID
@@ -61,8 +70,7 @@ public class FeatureService {
     public Feature createFeatureWithCard(Feature feature) {
         Card card = feature.getCard();
         if (card != null) {
-            card = cardRepository.save(card);
-            feature.setCard(card);
+            feature.setCard(cardRepository.save(card));
         }
         return featureRepository.save(feature);
     }
