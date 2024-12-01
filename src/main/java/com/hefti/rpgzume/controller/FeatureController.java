@@ -4,6 +4,8 @@ import com.hefti.rpgzume.model.Feature;
 import com.hefti.rpgzume.model.dto.CardDTO;
 import com.hefti.rpgzume.model.dto.FeatureDTO;
 import com.hefti.rpgzume.service.FeatureService;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,5 +73,12 @@ public class FeatureController {
     public ResponseEntity<List<Feature>> createFeatures(@RequestBody List<Feature> features) {
         return ResponseEntity.ok(featureService.createFeatures(features));
     }
+
+    @GetMapping("/pdf")
+    public ResponseEntity<Object> getPdf()  throws JSONException {
+        featureService.generatePdfAllFeatures();
+        return ResponseEntity.ok("PDF Gerado!");
+    }
+
 
 }
