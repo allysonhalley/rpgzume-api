@@ -15,10 +15,6 @@ public class PdfGeneratorService {
 
     // Método para chamar o gerador de PDF
     public void generateFeaturePdf(JSONArray featuresJSONArray)  throws JSONException {
-        try {
-           featurePdfGenerator.generateFeaturePdf(featuresJSONArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        featurePdfGenerator.generateFeaturePdf(featuresJSONArray);
     }
 }
