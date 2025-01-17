@@ -1,9 +1,13 @@
 package com.hefti.rpgzume.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hefti.rpgzume.model.Card;
+import com.hefti.rpgzume.model.Feature;
 import com.hefti.rpgzume.model.Magic;
 import com.hefti.rpgzume.repository.CardRepository;
 import com.hefti.rpgzume.repository.MagicRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,9 @@ public class MagicService {
     
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    private PdfGeneratorService pdfGeneratorService;
 
     // Buscar todas as magics
     public List<Magic> getAllMagics() {
@@ -73,5 +80,22 @@ public class MagicService {
             magic.setCard(cardRepository.save(card));
         }
         return magicRepository.save(magic);
+    }
+
+    public void generatePdfAllMagics() throws JSONException {
+        pdfGeneratorService.generateMagicPdf(getAllMagicsJson());
+    }
+
+    private JSONArray getAllMagicsJson() throws JSONException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Magic> magics = magicRepository.findAll();
+
+        // Converte a lista diretamente em uma string JSON e depois em um JSONArray
+        try {
+            String jsonString = objectMapper.writeValueAsString(magics);
+            return new JSONArray(jsonString);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao converter lista para JSON", e);
+        }
     }
 }

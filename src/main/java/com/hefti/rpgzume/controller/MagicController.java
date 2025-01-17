@@ -4,6 +4,7 @@ import com.hefti.rpgzume.model.Magic;
 import com.hefti.rpgzume.model.dto.CardDTO;
 import com.hefti.rpgzume.model.dto.MagicDTO;
 import com.hefti.rpgzume.service.MagicService;
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,6 +76,12 @@ public class MagicController {
     @PostMapping("/addfulllist")
     public ResponseEntity<List<Magic>> createMagics(@RequestBody List<Magic> magics) {
         return ResponseEntity.ok(magicService.createMagics(magics));
+    }
+
+    @GetMapping("/pdf")
+    public ResponseEntity<Object> getPdf()  throws JSONException {
+        magicService.generatePdfAllMagics();
+        return ResponseEntity.ok("PDF Gerado!");
     }
 
 
