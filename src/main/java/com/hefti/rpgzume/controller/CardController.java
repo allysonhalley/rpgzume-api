@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cards") // Prefixo REST comum
+@CrossOrigin(origins = "http://localhost:4200") // Permite chamadas do Angular
 public class CardController {
 
     @Autowired
@@ -56,11 +57,4 @@ public class CardController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
-
-    // Endpoint para deletar um card pelo ID
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Object> deleteCard(@PathVariable String id) {
-//        return ResponseEntity.badRequest().body("Cards só podem ser deletados através da exclusão da Feature associada.");
-//    }
 }
