@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +20,7 @@ public class CardController {
 
     // Endpoint para listar todos os cards
     @GetMapping
-    public List<Card> getAllCards() {
+    public Map<String, List<Card>> getAllCards() {
         return cardService.getAllCards();
     }
 

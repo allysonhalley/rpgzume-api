@@ -2,9 +2,12 @@ package com.hefti.rpgzume.model.dto;
 
 public record MagicDTO(
         String id,
-        CardDTO card,
         String type,
+        String name,
         String level,
+        String resume,
+        String book,
+        Integer page,
         String components,
         String castTime,
         String range,
@@ -12,7 +15,8 @@ public record MagicDTO(
         String duration,
         String savingThrow,
         String spellResistance,
-        String effect
+        String effect,
+        String description
 ) { }
 
 

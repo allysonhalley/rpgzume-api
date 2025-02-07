@@ -21,6 +21,7 @@ public class Card {
     private String description;
     private String book;
     private Integer page;
+    private String type;
 
 /*    @OneToOne
     @JoinColumn(name = "card_id", referencedColumnName = "id")

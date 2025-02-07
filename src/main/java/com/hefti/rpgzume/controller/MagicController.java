@@ -22,44 +22,23 @@ public class MagicController {
     // Endpoint para obter todos os magics
     @GetMapping
     public List<MagicDTO> getAllMagics() {
-        List<Magic> magics = magicService.getAllMagics();
-        return magics.stream().map(magic -> {
-            CardDTO cardDTO = magic.getCard() == null ? null : new CardDTO(
-                    magic.getCard().getId(),
-                    magic.getCard().getName(),
-                    magic.getCard().getResume(),
-                    magic.getCard().getDescription(),
-                    magic.getCard().getBook(),
-                    magic.getCard().getPage()
-            );
-
-            return new MagicDTO(
-                    magic.getId(),
-                    cardDTO,
-                    magic.getType(),
-                    magic.getLevel(),
-                    magic.getComponents(),
-                    magic.getCastTime(),
-                    magic.getRange(),
-                    magic.getTargetArea(),
-                    magic.getDuration(),
-                    magic.getSavingThrow(),
-                    magic.getSpellResistance(),
-                    magic.getEffect()
-            );
-        }).collect(Collectors.toList());
+        return magicService.getAllMagics().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     // Endpoint para criar um novo magic
     @PostMapping
-    public ResponseEntity<Magic> createMagic(@RequestBody Magic magic) {
-        return ResponseEntity.ok(magicService.createMagic(magic));
+    public ResponseEntity<MagicDTO> createMagic(@RequestBody Magic magic) {
+        Magic savedMagic = magicService.createMagic(magic);
+        return ResponseEntity.ok(convertToDTO(savedMagic));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Magic> getMagicById(@PathVariable String id) {
+    public ResponseEntity<MagicDTO> getMagicById(@PathVariable String id) {
         Optional<Magic> magic = magicService.getMagicById(id);
-        return magic.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        return magic.map(m -> ResponseEntity.ok(convertToDTO(m)))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -69,13 +48,18 @@ public class MagicController {
     }
 
     @PostMapping("/fullmagic")
-    public ResponseEntity<Magic> createMagicWithCard(@RequestBody Magic magic) {
-        return ResponseEntity.ok(magicService.createMagicWithCard(magic));
+    public ResponseEntity<MagicDTO> createMagicWithCard(@RequestBody Magic magic) {
+        Magic savedMagic = magicService.createMagicWithCard(magic);
+        return ResponseEntity.ok(convertToDTO(savedMagic));
     }
 
     @PostMapping("/addfulllist")
-    public ResponseEntity<List<Magic>> createMagics(@RequestBody List<Magic> magics) {
-        return ResponseEntity.ok(magicService.createMagics(magics));
+    public ResponseEntity<List<MagicDTO>> createMagics(@RequestBody List<Magic> magics) {
+        List<Magic> savedMagics = magicService.createMagics(magics);
+        List<MagicDTO> magicDTOs = savedMagics.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(magicDTOs);
     }
 
     @GetMapping("/pdf")
@@ -84,6 +68,24 @@ public class MagicController {
         return ResponseEntity.ok("PDF Gerado!");
     }
 
-
-
+    private MagicDTO convertToDTO(Magic magic) {
+        return new MagicDTO(
+                magic.getId(),
+                magic.getCard() != null ? magic.getCard().getType() : "magic",
+                magic.getCard() != null ? magic.getCard().getName() : "Sem Nome",
+                magic.getLevel(),
+                magic.getCard() != null ? magic.getCard().getResume() : "Sem Resumo",
+                magic.getCard() != null ? magic.getCard().getBook() : "Sem Livro",
+                magic.getCard() != null ? magic.getCard().getPage() : 0,
+                magic.getComponents(),
+                magic.getCastTime(),
+                magic.getRange(),
+                magic.getTargetArea(),
+                magic.getDuration(),
+                magic.getSavingThrow(),
+                magic.getSpellResistance(),
+                magic.getEffect(),
+                magic.getCard() != null ? magic.getCard().getDescription() : "Sem Descrição"
+        );
+    }
 }

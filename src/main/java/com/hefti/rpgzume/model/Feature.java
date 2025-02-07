@@ -24,4 +24,13 @@ public class Feature {
     private String benefit;
     private String normal;
     private String special;
+
+    public Feature(Card card, String prerequisites, String benefit, String normal, String special) {
+        this.card = card;
+        this.card.setType("feature");
+        this.prerequisites = prerequisites;
+        this.benefit = benefit;
+        this.normal = normal;
+        this.special = special;
+    }
 }

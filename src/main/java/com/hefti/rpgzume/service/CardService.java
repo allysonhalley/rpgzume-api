@@ -5,7 +5,9 @@ import com.hefti.rpgzume.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CardService {
@@ -16,8 +18,9 @@ public class CardService {
         this.cardRepository = cardRepository;
     }
 
-    public List<Card> getAllCards() {
-        return cardRepository.findAll();
+    public Map<String, List<Card>> getAllCards() {
+        List<Card> allCards = cardRepository.findAllOrderByType();
+        return allCards.stream().collect(Collectors.groupingBy(Card::getType));
     }
 
     public Optional<Card> getCardById(String id) {
