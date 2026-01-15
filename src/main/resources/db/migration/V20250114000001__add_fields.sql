@@ -1,2 +1,0 @@
-ALTER TABLE feature ADD COLUMN feature_type VARCHAR(255);
-ALTER TABLE magic ADD COLUMN school VARCHAR(255);
