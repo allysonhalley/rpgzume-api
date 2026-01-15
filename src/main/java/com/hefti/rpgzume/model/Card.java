@@ -23,8 +23,12 @@ public class Card {
     private Integer page;
     private String type;
 
-/*    @OneToOne
-    @JoinColumn(name = "card_id", referencedColumnName = "id")
-    private Card card;*/
+    @OneToOne(mappedBy = "card")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Feature feature;
+
+    @OneToOne(mappedBy = "card")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private Magic magic;
 
 }

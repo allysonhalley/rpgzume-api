@@ -1,7 +1,6 @@
 package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Feature;
-import com.hefti.rpgzume.model.dto.CardDTO;
 import com.hefti.rpgzume.model.dto.FeatureDTO;
 import com.hefti.rpgzume.service.FeatureService;
 import org.json.JSONException;
@@ -64,7 +63,7 @@ public class FeatureController {
     }
 
     @GetMapping("/pdf")
-    public ResponseEntity<Object> getPdf()  throws JSONException {
+    public ResponseEntity<Object> getPdf() throws JSONException {
         featureService.generatePdfAllFeatures();
         return ResponseEntity.ok("PDF Gerado!");
     }
@@ -74,6 +73,7 @@ public class FeatureController {
         return new FeatureDTO(
                 feature.getId(),
                 feature.getCard() != null ? feature.getCard().getType() : "feature",
+                feature.getFeatureType(),
                 feature.getCard() != null ? feature.getCard().getName() : "Sem Nome",
                 feature.getCard() != null ? feature.getCard().getResume() : "Sem Resumo",
                 feature.getCard() != null ? feature.getCard().getBook() : "Sem Livro",
@@ -82,9 +82,7 @@ public class FeatureController {
                 feature.getPrerequisites(),
                 feature.getBenefit(),
                 feature.getNormal(),
-                feature.getSpecial()
-        );
+                feature.getSpecial());
     }
-
 
 }

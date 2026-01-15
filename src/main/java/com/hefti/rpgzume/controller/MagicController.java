@@ -1,7 +1,6 @@
 package com.hefti.rpgzume.controller;
 
 import com.hefti.rpgzume.model.Magic;
-import com.hefti.rpgzume.model.dto.CardDTO;
 import com.hefti.rpgzume.model.dto.MagicDTO;
 import com.hefti.rpgzume.service.MagicService;
 import org.json.JSONException;
@@ -63,7 +62,7 @@ public class MagicController {
     }
 
     @GetMapping("/pdf")
-    public ResponseEntity<Object> getPdf()  throws JSONException {
+    public ResponseEntity<Object> getPdf() throws JSONException {
         magicService.generatePdfAllMagics();
         return ResponseEntity.ok("PDF Gerado!");
     }
@@ -72,6 +71,7 @@ public class MagicController {
         return new MagicDTO(
                 magic.getId(),
                 magic.getCard() != null ? magic.getCard().getType() : "magic",
+                magic.getSchool(),
                 magic.getCard() != null ? magic.getCard().getName() : "Sem Nome",
                 magic.getLevel(),
                 magic.getCard() != null ? magic.getCard().getResume() : "Sem Resumo",
@@ -85,7 +85,6 @@ public class MagicController {
                 magic.getSavingThrow(),
                 magic.getSpellResistance(),
                 magic.getEffect(),
-                magic.getCard() != null ? magic.getCard().getDescription() : "Sem Descrição"
-        );
+                magic.getCard() != null ? magic.getCard().getDescription() : "Sem Descrição");
     }
 }

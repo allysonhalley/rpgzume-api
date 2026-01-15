@@ -29,12 +29,15 @@ public class Magic {
     private String duration;
     private String savingThrow;
     private String spellResistance;
+    private String school;
     private String effect;
 
-    public Magic(Card card, String type, String level, String components, String castTime, String range, String targetArea, String duration, String savingThrow, String spellResistance, String effect) {
+    public Magic(Card card, String type, String school, String level, String components, String castTime, String range,
+            String targetArea, String duration, String savingThrow, String spellResistance, String effect) {
         this.card = card;
         this.card.setType("magic");
         this.type = type;
+        this.school = school;
         this.level = level;
         this.components = components;
         this.castTime = castTime;
