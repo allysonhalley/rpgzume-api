@@ -1,93 +1,209 @@
--- Semilla de Dados para Tormenta RPG (Expandida)
+-- Seed Data for Tormenta RPG (Comprehensive)
 
 -- ==========================================
--- TALENTOS (FEATURES)
+-- HABILIDADES DE CLASSE (CLASS FEATURES)
 -- ==========================================
 
--- 1. Ataque Poderoso
+-- Bárbaro
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('d5e6f7a8-1b2c-3d4e-5f6g-7h8i9j0k1l2m', 'feature', 'Ataque Poderoso', 'Troque precisão por dano bruto.', 'Você sabe desferir golpes pesados e imprudentes.', 'Tormenta RPG', 115);
-
+('barb-001', 'feature', 'Fúria', 'Ganha bônus de combate mas fica estafado.', 'Você pode invocar uma fúria primal.', 'Tormenta RPG', 46);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('a1b2c3d4-e5f6-7890-1234-567890abcdef', 'd5e6f7a8-1b2c-3d4e-5f6g-7h8i9j0k1l2m', 'Combate', 'For 13', 'Ao realizar um ataque corpo-a-corpo, você pode escolher sofrer uma penalidade de –2 no teste de ataque para receber um bônus de +4 na jogada de dano. A penalidade e o bônus duram até o início do seu próximo turno.', 'O bônus de dano não se plica a ataques com armas leves (exceto desarmados).', NULL);
+('feat-barb-001', 'barb-001', 'Classe', 'Bárbaro 1', '+2 ataque e dano corpo-a-corpo, RD 1, -2 CA. Dura 5 + mod Con rodadas.', NULL, NULL);
 
--- 2. Esquiva
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('f0e1d2c3-b4a5-9687-5432-10fedcba0987', 'feature', 'Esquiva', 'Recebe bônus na CA.', 'Você é perito em evitar golpes.', 'Tormenta RPG', 121);
-
+('barb-002', 'feature', 'Movimento Rápido', 'Aumenta deslocamento.', 'Você se move mais rápido que o normal.', 'Tormenta RPG', 46);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('98765432-10fe-dcba-0987-654321fedcba', 'f0e1d2c3-b4a5-9687-5432-10fedcba0987', 'Combate', 'Des 13', 'Você recebe +1 na classe de armadura.', 'Uma condição que faça você perder seu bônus de Destreza na CA também faz você perder este bônus.', NULL);
+('feat-barb-002', 'barb-002', 'Classe', 'Bárbaro 1', '+3m de deslocamento se usar armadura média, leve ou nenhuma.', NULL, NULL);
 
--- 3. Foco em Arma
+-- Bardo
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('c3b2a109-8765-4321-fedc-ba0987654321', 'feature', 'Foco em Arma', 'Bônus em ataques com uma arma.', 'Você é mestre em uma arma específica.', 'Tormenta RPG', 123);
-
+('bard-001', 'feature', 'Conhecimento de Bardo', 'Sabe de tudo um pouco.', 'Você ouviu muitas lendas e histórias.', 'Tormenta RPG', 49);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('b1a20394-8574-6352-d1c2-b3a405968741', 'c3b2a109-8765-4321-fedc-ba0987654321', 'Combate', 'Usar Arma (escolhida), BBA +1', 'Escolha uma arma (como espada longa ou arco longo). Você recebe +1 nas jogadas de ataque com a arma escolhida.', NULL, 'Você pode adquirir este talento várias vezes. Cada vez que adquire este talento, ele se aplica a uma arma diferente.');
+('feat-bard-001', 'bard-001', 'Classe', 'Bardo 1', 'Adiciona nível de bardo aos testes de Conhecimento (pode fazer treinados).', NULL, NULL);
 
--- 4. Iniciativa Aprimorada
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('e1d2c3b4-a506-9788-7654-3210fedcba99', 'feature', 'Iniciativa Aprimorada', 'Reage mais rápido ao perigo.', 'Você reage rapidamente ao perigo.', 'Tormenta RPG', 124);
-
+('bard-002', 'feature', 'Música de Bardo', 'Usa música para efeitos mágicos.', 'Você pode usar sua arte para produzir efeitos mágicos.', 'Tormenta RPG', 49);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('a5b4c3d2-e1f0-9876-5432-10ab9c8d7e6f', 'e1d2c3b4-a506-9788-7654-3210fedcba99', 'Combate', 'Nenhum', 'Você recebe +4 em testes de Iniciativa.', NULL, NULL);
+('feat-bard-002', 'bard-002', 'Classe', 'Bardo 1', 'Pode usar músicas de bardo um número de vezes por dia igual a Nível + Car.', NULL, NULL);
 
--- 5. Tiro Certeiro
+-- Clérigo
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('00112233-4455-6677-8899-aabbccddeeff', 'feature', 'Tiro Certeiro', 'Bônus em ataque e dano à curta distância.', 'Você é perito em disparos precisos à curta distância.', 'Tormenta RPG', 127);
-
+('cler-001', 'feature', 'Canalizar Energia', 'Libera onda de energia.', 'Você libera uma onda de energia divina.', 'Tormenta RPG', 54);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('ffeeddcc-bbaa-9988-7766-554433221100', '00112233-4455-6677-8899-aabbccddeeff', 'Combate', 'BBA +1', 'Você recebe +1 nas jogadas de ataque e dano com armas de ataque à distância contra inimigos a até 9m.', NULL, NULL);
+('feat-cler-001', 'cler-001', 'Classe', 'Clérigo 1', 'Cura vivos ou fere mortos-vivos (Positiva) ou vice-versa (Negativa). 1d6 a cada 2 níveis. Explosão 9m.', NULL, NULL);
 
--- 6. Vitalidade
+-- Druida
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d', 'feature', 'Vitalidade', 'Ganha PV extras.', 'Você é mais resistente que o normal.', 'Tormenta RPG', 129);
-
+('druid-001', 'feature', 'Companheiro Animal', 'Animal leal.', 'Você tem um animal leal que luta ao seu lado.', 'Tormenta RPG', 58);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('9z8y7x6w-5v4u-3t2s-1r0q-9p8o7n6m5l4k', '1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d', 'Geral', 'Con 13', 'Você recebe +3 pontos de vida. Para cada nível de personagem além do 1º, você recebe +1 PV.', NULL, NULL);
+('feat-druid-001', 'druid-001', 'Classe', 'Druida 1', 'Ganha um companheiro animal (veja pag 58).', NULL, NULL);
 
--- 7. Vontade de Ferro
 INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
-('12345678-1234-1234-1234-123456789012', 'feature', 'Vontade de Ferro', 'Bônus em testes de Vontade.', 'Você tem uma força de vontade inabalável.', 'Tormenta RPG', 129);
-
+('druid-002', 'feature', 'Senso da Natureza', 'Bônus em perícias.', 'Você entende o mundo natural.', 'Tormenta RPG', 58);
 INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
-('87654321-4321-4321-4321-210987654321', '12345678-1234-1234-1234-123456789012', 'Geral', 'Nenhum', 'Você recebe +2 em testes de Vontade.', NULL, NULL);
+('feat-druid-002', 'druid-002', 'Classe', 'Druida 1', '+2 em Conhecimento (natureza) e Sobrevivência.', NULL, NULL);
+
+-- Guerreiro
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('fight-001', 'feature', 'Técnica de Luta', 'Ganha talentos de combate.', 'Você treina incessantemente.', 'Tormenta RPG', 63);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-fight-001', 'fight-001', 'Classe', 'Guerreiro 1', 'Ganha um talento de combate adicional no nível 1 e a cada nível par.', NULL, NULL);
+
+-- Ladino
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('rogue-001', 'feature', 'Ataque Furtivo', 'Dano extra em alvos vulneráveis.', 'Você sabe onde atingir para causar mais dor.', 'Tormenta RPG', 66);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-rogue-001', 'rogue-001', 'Classe', 'Ladino 1', '+1d6 dano se o alvo estiver desprevenido ou flanqueado. Aumenta 1d6 a cada 2 níveis ímpares.', NULL, NULL);
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('rogue-002', 'feature', 'Encontrar Armadilhas', 'Acha armadilhas mágicas.', 'Você tem olhos treinados para o perigo.', 'Tormenta RPG', 66);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-rogue-002', 'rogue-002', 'Classe', 'Ladino 1', 'Pode usar Percepção para encontrar armadilhas com CD maior que 20.', NULL, NULL);
+
+-- Mago/Feiticeiro
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('wiz-001', 'feature', 'Vínculo Arcano', 'Item ou animal mágico.', 'Você tem uma ligação sobrenatural com um objeto ou criatura.', 'Tormenta RPG', 72);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-wiz-001', 'wiz-001', 'Classe', 'Mago 1', 'Escolha entre um item de poder ou um familiar.', NULL, NULL);
+
+-- Monge
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('monk-001', 'feature', 'Dano Desarmado', 'Seus punhos são armas.', 'Você treinou para lutar sem armas.', 'Tormenta RPG', 76);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-monk-001', 'monk-001', 'Classe', 'Monge 1', '1d6 dano (Médio). Considerado armado.', NULL, NULL);
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('monk-002', 'feature', 'Sexto Sentido', 'Soma Sab na CA.', 'Sua intuição o protege.', 'Tormenta RPG', 76);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-monk-002', 'monk-002', 'Classe', 'Monge 1', 'Adiciona modificador de Sabedoria na CA.', NULL, NULL);
+
+-- Paladino
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('pal-001', 'feature', 'Detectar o Mal', 'Sente presença maligna.', 'Você pode sentir a mácula do mal.', 'Tormenta RPG', 80);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-pal-001', 'pal-001', 'Classe', 'Paladino 1', 'Pode usar Detectar o Mal à vontade.', NULL, NULL);
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('pal-002', 'feature', 'Graça Divina', 'Soma Car na resistência.', 'Os deuses o protegem.', 'Tormenta RPG', 80);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-pal-002', 'pal-002', 'Classe', 'Paladino 2', 'Adiciona modificador de Carisma em todos os testes de resistência.', NULL, NULL);
+
+-- Ranger
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('rang-001', 'feature', 'Inimigo Predileto', 'Bônus contra tipos de criatura.', 'Você estudou um tipo de criatura.', 'Tormenta RPG', 84);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('feat-rang-001', 'rang-001', 'Classe', 'Ranger 1', '+2  dano e perícias contra o tipo escolhido.', NULL, NULL);
+
 
 -- ==========================================
--- MAGIAS (MAGICS)
+-- TALENTOS (FEATS)
 -- ==========================================
 
--- 8. Mísseis Mágicos
-INSERT INTO card (id, type, name, resume, description, book, page) VALUES
-('11aa22bb-33cc-44dd-55ee-66ff77889900', 'magic', 'Mísseis Mágicos', 'Dispara dardos de energia infalíveis.', 'Dardos de pura energia saem da ponta de seus dedos e atingem os alvos infalivelmente.', 'Tormenta RPG', 185);
+-- Combate
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-combat-001', 'feature', 'Ataque Poderoso', 'Troque precisão por dano.', 'Golpes pesados.', 'Tormenta RPG', 115);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-c-001', 'feat-combat-001', 'Combate', 'For 13', '-2 ataque, +4 dano.', NULL, NULL);
 
-INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES
-('aa11bb22-cc33-dd44-ee55-ff6677889900', '11aa22bb-33cc-44dd-55ee-66ff77889900', 'Arcana', 'Evocação', '1', 'V, G', '1 ação padrão', 'Médio (30m + 3m/nível)', 'Até 5 criaturas', 'Instantânea', 'Nenhum', 'Sim', 'Você cria até 5 setas de energia que causam 1d4+1 pontos de dano de essência cada.');
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-combat-002', 'feature', 'Esquiva', '+1 na CA.', 'Você é ágil.', 'Tormenta RPG', 121);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-c-002', 'feat-combat-002', 'Combate', 'Des 13', '+1 CA.', NULL, NULL);
 
--- 9. Curar Ferimentos Leves
-INSERT INTO card (id, type, name, resume, description, book, page) VALUES
-('22bb33cc-44dd-55ee-66ff-7788990011aa', 'magic', 'Curar Ferimentos Leves', 'Cura 1d8+1/+nível pvs (máx +5).', 'Você canaliza energia positiva para curar um aliado.', 'Tormenta RPG', 167);
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-combat-003', 'feature', 'Foco em Arma', '+1 ataque com arma.', 'Mestre em uma arma.', 'Tormenta RPG', 123);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-c-003', 'feat-combat-003', 'Combate', 'Usar Arma, BBA +1', '+1 ataque com a arma escolhida.', NULL, NULL);
 
-INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES
-('bb22cc33-dd44-ee55-ff66-7788990011aa', '22bb33cc-44dd-55ee-66ff-7788990011aa', 'Divina', 'Invocação', '1', 'V, G', '1 ação padrão', 'Toque', 'Criatura tocada', 'Instantânea', 'Vontade metade (inofensiva)', 'Sim (inofensiva)', 'A magia canaliza energia positiva que cura 1d8+1 pontos de dano +1 por nível de conjurador (máximo +5).');
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-combat-004', 'feature', 'Saque Rápido', 'Saca arma como ação livre.', 'Rápido no gatilho.', 'Tormenta RPG', 127);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-c-004', 'feat-combat-004', 'Combate', 'BBA+1', 'Sacar arma é ação livre.', NULL, NULL);
 
--- 10. Bola de Fogo
-INSERT INTO card (id, type, name, resume, description, book, page) VALUES
-('33cc44dd-55ee-66ff-7788-990011aa22bb', 'magic', 'Bola de Fogo', 'Causa 1d6/nível de dano de fogo.', 'Você aponta o dedo e uma pequena esfera de fogo voa até o ponto escolhido, onde explode em chamas.', 'Tormenta RPG', 160);
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-combat-005', 'feature', 'Tiro Preciso', 'Sem penalidade atirando em combate.', 'Mira firme.', 'Tormenta RPG', 128);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-c-005', 'feat-combat-005', 'Combate', 'Tiro Certeiro', 'Não sofre -4 por atirar em inimigo engajado em combate.', NULL, NULL);
 
-INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES
-('cc33dd44-ee55-ff66-7788-990011aa22bb', '33cc44dd-55ee-66ff-7788-990011aa22bb', 'Arcana', 'Evocação', '3', 'V, G, M', '1 ação padrão', 'Longo (120m + 12m/nível)', 'Esfera de 6m de raio', 'Instantânea', 'Reflexos metade', 'Sim', 'Causa 1d6 pontos de dano de fogo por nível de conjurador (máximo 10d6) a todas as criaturas na área.');
+-- Magia
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-magic-001', 'feature', 'Magia em Combate', 'Não leva ADO conjurando.', 'Conjura defensivamente.', 'Tormenta RPG', 124);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-m-001', 'feat-magic-001', 'Magia', 'Nenhum', '+4 em testes de Identificar Magia para conjurar defensivamente.', NULL, NULL);
 
--- 11. Armadura Arcana
-INSERT INTO card (id, type, name, resume, description, book, page) VALUES
-('44dd55ee-66ff-7788-9900-11aa22bb33cc', 'magic', 'Armadura Arcana', 'Concede bônus de +4 na CA.', 'Uma armadura invisível mas tangível envolve o alvo.', 'Tormenta RPG', 157);
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-magic-002', 'feature', 'Potencializar Magia', 'Aumenta efeitos variáveis.', 'Sua magia é mais forte.', 'Tormenta RPG', 126);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-m-002', 'feat-magic-002', 'Magia', 'Nenhum', 'Efeitos numéricos variáveis aumentados em 50%. Custo: +2 níveis.', NULL, NULL);
 
-INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES
-('dd44ee55-ff66-7788-9900-11aa22bb33cc', '44dd55ee-66ff-7788-9900-11aa22bb33cc', 'Arcana', 'Invocação', '1', 'V, G, F', '1 ação padrão', 'Toque', 'Criatura tocada', '1 hora/nível', 'Vontade anula (inofensiva)', 'Sim (inofensiva)', 'O alvo recebe um bônus de +4 na classe de armadura.');
+-- Perícia
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-skill-001', 'feature', 'Foco em Perícia', '+4 em uma perícia.', 'Especialista.', 'Tormenta RPG', 123);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-s-001', 'feat-skill-001', 'Perícia', 'Nenhum', '+4 na perícia escolhida.', NULL, NULL);
 
--- 12. Benção
-INSERT INTO card (id, type, name, resume, description, book, page) VALUES
-('55ee66ff-7788-9900-11aa-22bb33cc44dd', 'magic', 'Benção', 'Aliados ganham +1 em ataque e medo.', 'Preenche os aliados com coragem.', 'Tormenta RPG', 159);
+-- Geral
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES 
+('feat-gen-001', 'feature', 'Vitalidade', 'PV Extra.', 'Duro de matar.', 'Tormenta RPG', 129);
+INSERT INTO feature (id, card_id, feature_type, prerequisites, benefit, normal, special) VALUES 
+('f-g-001', 'feat-gen-001', 'Geral', 'Con 13', '+3 PV, +1 por nível.', NULL, NULL);
 
-INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES
-('ee55ff66-7788-9900-11aa-22bb33cc44dd', '55ee66ff-7788-9900-11aa-22bb33cc44dd', 'Divina', 'Encantamento', '1', 'V, G, DF', '1 ação padrão', '15m', 'Todos os aliados a até 15m', '1 minuto/nível', 'Nenhum', 'Sim', 'Concede +1 nas jogadas de ataque e testes de resistência contra medo.');
+-- ==========================================
+-- MAGIAS (SPELLS)
+-- ==========================================
+
+-- Nível 0
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-001', 'magic', 'Detectar Magia', 'Detecta auras mágicas.', 'Você percebe emanações de magia.', 'Tormenta RPG', 169);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-001', 'spell-001', 'Arcana/Divina', 'Adivinhação', '0', 'V, G', '1 ação', '18m', 'Cone', 'Conc. até 1 min', 'Não', 'Não', 'Detecta auras mágicas.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-002', 'magic', 'Luz', 'Objeto brilha.', 'Cria luz.', 'Tormenta RPG', 182);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-002', 'spell-002', 'Arcana/Divina', 'Evocação', '0', 'V, G', '1 ação', 'Toque', 'Objeto', '10 min/nível', 'Não', 'Não', 'Objeto brilha como tocha.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-003', 'magic', 'Ler Magias', 'Lê pergaminhos.', 'Decifra escritas mágicas.', 'Tormenta RPG', 181);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-003', 'spell-003', 'Arcana/Divina', 'Adivinhação', '0', 'V, G', '1 ação', 'Pessoal', 'Você', '10 min/nível', 'Não', 'Não', 'Permite ler escritas mágicas.');
+
+-- Nível 1
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-101', 'magic', 'Mísseis Mágicos', 'Dano infalível.', 'Dardos de energia.', 'Tormenta RPG', 185);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-101', 'spell-101', 'Arcana', 'Evocação', '1', 'V, G', '1 ação', '30m', 'Até 5 alvos', 'Instant', 'Não', 'Sim', '1d4+1 x setas.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-102', 'magic', 'Armadura Arcana', '+4 CA.', 'Campo de força.', 'Tormenta RPG', 157);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-102', 'spell-102', 'Arcana', 'Abjuração', '1', 'V, G', '1 ação', 'Toque', 'Criatura', '1 h/nível', 'Vontade', 'Sim', '+4 CA.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-103', 'magic', 'Curar Ferimentos Leves', 'Cura 1d8+1.', 'Energia positiva.', 'Tormenta RPG', 167);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-103', 'spell-103', 'Divina', 'Invocação', '1', 'V, G', '1 ação', 'Toque', 'Criatura', 'Instant', 'Vontade', 'Sim', 'Cura 1d8+1/nível (max +5).');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-104', 'magic', 'Escudo Arcano', '+4 CA e imune a mísseis.', 'Disco invisível.', 'Tormenta RPG', 172);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-104', 'spell-104', 'Arcana', 'Abjuração', '1', 'V, G', '1 ação', 'Pessoal', 'Você', '1 min/nível', 'Não', 'Não', '+4 CA e imune a mísseis mágicos.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-105', 'magic', 'Sono', 'Põe inimigos para dormir.', 'Sono mágico.', 'Tormenta RPG', 200);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-105', 'spell-105', 'Arcana', 'Encantamento', '1', 'V, G, M', '1 rodada', '30m', '4m raio', '1 min/nível', 'Vontade', 'Sim', '4d4 DV de criaturas dormem.');
+
+-- Nível 2
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-201', 'magic', 'Invisibilidade', 'Fica invisível.', 'Desaparece da visão.', 'Tormenta RPG', 181);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-201', 'spell-201', 'Arcana', 'Ilusão', '2', 'V, G', '1 ação', 'Toque', 'Criatura', '1 min/nível', 'Vontade', 'Sim', 'Invisível até atacar.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-202', 'magic', 'Teia', 'Prende inimigos.', 'Teia pegajosa.', 'Tormenta RPG', 203);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-202', 'spell-202', 'Arcana', 'Invocação', '2', 'V, G, M', '1 ação', '30m', '6m raio', '10 min/nível', 'Reflexos', 'Sim', 'Enreda criaturas.');
+
+-- Nível 3
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-301', 'magic', 'Bola de Fogo', 'Explosão de fogo.', 'Dano em área.', 'Tormenta RPG', 160);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-301', 'spell-301', 'Arcana', 'Evocação', '3', 'V, G, M', '1 ação', '120m', '6m raio', 'Instant', 'Reflexos', 'Sim', '1d6/nível (max 10d6) de fogo.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-302', 'magic', 'Voo', 'Permite voar.', 'Você voa.', 'Tormenta RPG', 208);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-302', 'spell-302', 'Arcana', 'Transmutação', '3', 'V, G', '1 ação', 'Toque', 'Criatura', '1 min/nível', 'Vontade', 'Sim', 'Ganha deslocamento de voo 18m.');
+
+INSERT INTO card (id, type, name, resume, description, book, page) VALUES ('spell-303', 'magic', 'Relâmpago', 'Linha elétrica.', 'Raio de eletricidade.', 'Tormenta RPG', 194);
+INSERT INTO magic (id, card_id, type, school, level, components, cast_time, range, target_area, duration, saving_throw, spell_resistance, effect) VALUES 
+('m-303', 'spell-303', 'Arcana', 'Evocação', '3', 'V, G, M', '1 ação', '36m', 'Linha', 'Instant', 'Reflexos', 'Sim', '1d6/nível (max 10d6) elétrico.');
